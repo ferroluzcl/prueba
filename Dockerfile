@@ -18,6 +18,7 @@ RUN npm install --omit=dev --legacy-peer-deps
 COPY server.js ./
 COPY --from=builder /app/dist ./dist
 
-EXPOSE 3000
+EXPOSE 4000
+ENV PORT=4000
 
 CMD ["node", "server.js"]
