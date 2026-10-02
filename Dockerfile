@@ -8,10 +8,14 @@ RUN npm install --legacy-peer-deps
 COPY . .
 RUN npm run build
 
-# Etapa 2: Servidor web de producción ligero
-FROM nginx:alpine
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=builder /app/dist /usr/share/nginx/html
-EXPOSE 80
+# Etapa 2: Servidor HTTP con Node.js
+FROM node:20-alpine
+WORKDIR /app
 
-CMD ["nginx", "-g", "daemon off;"]
+RUN npm install -g serve
+
+COPY --from=builder /app/dist ./dist
+
+EXPOSE 3000
+
+CMD ["serve", "-s", "dist", "-l", "3000"]
