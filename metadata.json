@@ -1,0 +1,6 @@
+{
+  "name": "Naturaleza Pura - Shampoo Disaar Cubridor de Canas",
+  "description": "Tienda oficial Naturaleza Pura en Chile. Shampoo Disaar® cubre canas natural en minutos, sin amoníaco, con pago contra entrega y despacho exprés en 24h.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
