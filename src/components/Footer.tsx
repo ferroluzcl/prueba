@@ -49,9 +49,9 @@ export const Footer: React.FC<FooterProps> = ({ onOpenWhatsApp }) => {
               <li>
                 <button
                   onClick={onOpenWhatsApp}
-                  className="hover:text-emerald-400 transition-colors text-left"
+                  className="hover:text-emerald-400 transition-colors text-left flex items-center gap-1 cursor-pointer"
                 >
-                  📱 WhatsApp Soporte Directo
+                  <span>📱 WhatsApp: +56 9 2700 4716</span>
                 </button>
               </li>
               <li>🕒 Lunes a Sábado: 9:00 a 19:00 hrs</li>

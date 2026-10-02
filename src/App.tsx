@@ -60,7 +60,7 @@ export default function App() {
     const text = encodeURIComponent(
       `Hola BioCuidado! Tengo una consulta sobre el Shampoo Disaar cubridor de canas (Tono ${selectedColor.shortName}). ¿Me pueden asesorar?`
     );
-    window.open(`https://wa.me/?text=${text}`, '_blank');
+    window.open(`https://wa.me/56927004716?text=${text}`, '_blank');
   };
 
   return (

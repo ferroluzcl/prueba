@@ -96,7 +96,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
     const text = encodeURIComponent(
       `Hola BioCuidado! Acabo de hacer el pedido ${orderNumber} de Shampoo Disaar (${selectedPack.title}, Tono ${selectedColor.shortName}) para despacho en ${comuna}. Mi nombre es ${fullName}.`
     );
-    window.open(`https://wa.me/?text=${text}`, '_blank');
+    window.open(`https://wa.me/56927004716?text=${text}`, '_blank');
   };
 
   const resetAndClose = () => {
@@ -161,6 +161,9 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   <span className="text-emerald-700 text-sm">${selectedPack.price.toLocaleString('es-CL')}</span>
                 </div>
                 <div className="text-slate-600">
+                  <span>Cantidad: <strong>{selectedPack.bottles} {selectedPack.bottles === 1 ? 'Botella (400ml)' : `Botellas (${selectedPack.bottles * 400}ml)`}</strong></span>
+                </div>
+                <div className="text-slate-600">
                   <span>Tono: <strong>{selectedColor.name}</strong></span>
                 </div>
                 <div className="text-slate-600">
@@ -182,10 +185,10 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   className="w-full bg-[#16a34a] hover:bg-[#15803d] text-white py-3.5 px-4 rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/20 active:scale-95 transition-all cursor-pointer"
                 >
                   <MessageCircle className="w-5 h-5" />
-                  <span>Enviar mi pedido a WhatsApp de Soporte</span>
+                  <span>Enviar mi pedido a WhatsApp (+56 9 2700 4716)</span>
                 </button>
                 <p className="text-[11px] text-slate-500">
-                  Te escribiremos en breve desde nuestro número oficial para coordinar el horario más cómodo para tu entrega.
+                  Te escribiremos en breve desde nuestro WhatsApp <strong>+56 9 2700 4716</strong> para coordinar el horario más cómodo para tu entrega.
                 </p>
 
                 <button
@@ -200,71 +203,103 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
             /* Order Form */
             <form onSubmit={handleSubmitOrder} className="space-y-5">
               
-              {/* Product Variant Quick Summary & Selectors */}
-              <div className="bg-[#FAFBF9] border border-slate-200/90 rounded-2xl p-4">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-200">
-                  <div>
-                    <span className="text-[11px] uppercase font-bold text-slate-500 tracking-wider">
-                      Producto Seleccionado:
-                    </span>
-                    <h4 className="font-extrabold text-slate-900 text-sm">
-                      {selectedPack.title}
-                    </h4>
-                    <p className="text-xs text-emerald-800 font-semibold mt-0.5">
-                      ✓ Cantidad: {selectedPack.bottles} {selectedPack.bottles === 1 ? 'Botella (400ml)' : `Botellas (${selectedPack.bottles * 400}ml en total)`}
-                    </p>
-                  </div>
-                  <div className="text-right">
-                    <span className="text-lg font-black text-emerald-800">
-                      ${selectedPack.price.toLocaleString('es-CL')} CLP
-                    </span>
-                    <span className="block text-[11px] text-emerald-600 font-semibold">
-                      Envío Gratis
-                    </span>
-                  </div>
+              {/* Promo Packs Selection: Visual Radio Cards (Non-expandable) */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <label className="text-xs font-bold text-slate-900 block">
+                    1. Elige tu Promoción:
+                  </label>
+                  <span className="text-[11px] text-emerald-800 font-semibold">
+                    Envío Prioritario Gratis incluido
+                  </span>
                 </div>
 
-                {/* Change Pack & Tone selectors inside modal if desired */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-3 text-xs">
-                  <div>
-                    <label className="font-semibold text-slate-700 block mb-1">
-                      Cambiar Promoción:
-                    </label>
-                    <select
-                      value={selectedPack.id}
-                      onChange={(e) => {
-                        const found = PRODUCT_PACKS.find(p => p.id === e.target.value);
-                        if (found) onSelectPack(found);
-                      }}
-                      className="w-full bg-white border border-slate-200 rounded-xl p-2 font-medium text-slate-800 focus:ring-2 focus:ring-emerald-500 focus:outline-none"
-                    >
-                      {PRODUCT_PACKS.map(p => (
-                        <option key={p.id} value={p.id}>
-                          {p.title} (${p.price.toLocaleString('es-CL')})
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                <div className="space-y-2">
+                  {PRODUCT_PACKS.map((pack) => {
+                    const isSelected = selectedPack.id === pack.id;
+                    return (
+                      <div
+                        key={pack.id}
+                        onClick={() => onSelectPack(pack)}
+                        className={`p-3 rounded-2xl cursor-pointer transition-all flex items-center justify-between ${
+                          isSelected
+                            ? 'border-2 border-[#0f382a] bg-emerald-50/50 shadow-sm ring-1 ring-emerald-500/20'
+                            : 'border border-slate-200 hover:border-slate-300 bg-white'
+                        }`}
+                      >
+                        <div className="flex items-center gap-2.5">
+                          <input
+                            type="radio"
+                            name="modal_promo_pack"
+                            checked={isSelected}
+                            onChange={() => onSelectPack(pack)}
+                            className="w-4 h-4 text-[#0f382a] accent-[#0f382a] cursor-pointer"
+                          />
+                          <div>
+                            {pack.tag && (
+                              <span className="text-[9px] font-black text-white bg-[#0f382a] px-1.5 py-0.5 rounded uppercase mr-1 inline-block">
+                                {pack.tag}
+                              </span>
+                            )}
+                            <span className="text-xs sm:text-sm font-bold text-slate-900 block sm:inline">
+                              {pack.title}
+                            </span>
+                            <p className="text-[11px] text-emerald-900 font-medium">
+                              Llevas: <strong>{pack.bottles} {pack.bottles === 1 ? 'Botella (400ml)' : `Botellas (${pack.bottles * 400}ml)`}</strong> · {pack.subtitle}
+                            </p>
+                          </div>
+                        </div>
 
-                  <div>
-                    <label className="font-semibold text-slate-700 block mb-1">
-                      Tono Elegido:
-                    </label>
-                    <select
-                      value={selectedColor.id}
-                      onChange={(e) => {
-                        const found = COLOR_VARIANTS.find(c => c.id === e.target.value);
-                        if (found) onSelectColor(found);
-                      }}
-                      className="w-full bg-white border border-slate-200 rounded-xl p-2 font-medium text-slate-800 focus:ring-2 focus:ring-emerald-500 focus:outline-none"
-                    >
-                      {COLOR_VARIANTS.map(c => (
-                        <option key={c.id} value={c.id}>
-                          {c.name}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                        <div className="text-right flex-shrink-0 ml-2">
+                          <span className="text-base font-black text-[#0f382a] tabular-nums block">
+                            ${pack.price.toLocaleString('es-CL')}
+                          </span>
+                          <span className="text-[10px] text-slate-400 line-through tabular-nums block">
+                            ${pack.originalPrice.toLocaleString('es-CL')}
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Tone Selection: Visual Swatch Buttons */}
+              <div className="bg-[#FAFBF9] border border-slate-200/90 rounded-2xl p-3.5 space-y-2">
+                <div className="flex items-center justify-between">
+                  <label className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                    <span>2. Tono Seleccionado:</span>
+                    <span className="text-emerald-700 font-extrabold">{selectedColor.name}</span>
+                  </label>
+                  <span className="text-[10px] text-slate-500 font-medium">
+                    Toca para cambiar
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                  {COLOR_VARIANTS.map((c) => {
+                    const isSelected = selectedColor.id === c.id;
+                    return (
+                      <button
+                        key={c.id}
+                        type="button"
+                        onClick={() => onSelectColor(c)}
+                        className={`flex items-center gap-2 p-2 rounded-xl text-left transition-all cursor-pointer ${
+                          isSelected
+                            ? 'border-2 border-[#0f382a] bg-emerald-100/40 shadow-xs'
+                            : 'border border-slate-200 hover:border-slate-300 bg-white'
+                        }`}
+                      >
+                        <span
+                          className="w-4 h-4 rounded-full border border-white shadow-xs flex-shrink-0"
+                          style={{ backgroundColor: c.hex }}
+                        />
+                        <span className="text-xs font-bold text-slate-800 truncate">
+                          {c.shortName}
+                        </span>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
 
