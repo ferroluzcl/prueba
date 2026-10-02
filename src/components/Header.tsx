@@ -8,18 +8,18 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({ onOpenCheckout, onOpenWhatsApp }) => {
   return (
-    <header className="bg-white/95 backdrop-blur-md border-b border-slate-200/80 sticky top-[39px] z-40">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+    <header className="bg-white/95 backdrop-blur-md border-b border-slate-200/80 sticky top-0 sm:top-[37px] z-40 shadow-xs">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-20 flex items-center justify-between">
         {/* Zone 1: Single text element wordmark */}
-        <a href="#" className="flex items-center gap-2.5 group">
-          <div className="w-10 h-10 rounded-xl bg-[#0f382a] text-emerald-400 flex items-center justify-center shadow-md shadow-emerald-950/10 group-hover:scale-105 transition-transform">
-            <Leaf className="w-5 h-5 text-emerald-400" />
+        <a href="#" className="flex items-center gap-2 sm:gap-2.5 group">
+          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-[#0f382a] text-emerald-400 flex items-center justify-center shadow-md shadow-emerald-950/10 group-hover:scale-105 transition-transform flex-shrink-0">
+            <Leaf className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400" />
           </div>
           <div className="leading-tight">
-            <span className="text-xl font-extrabold tracking-tight text-[#0f382a] block">
+            <span className="text-base sm:text-xl font-extrabold tracking-tight text-[#0f382a] block">
               BIOCUIDADO
             </span>
-            <span className="text-[11px] font-semibold text-emerald-600 tracking-wider uppercase block">
+            <span className="text-[10px] sm:text-[11px] font-semibold text-emerald-600 tracking-wider uppercase block hidden sm:block">
               Cosmética Capilar Natural
             </span>
           </div>
@@ -48,19 +48,19 @@ export const Header: React.FC<HeaderProps> = ({ onOpenCheckout, onOpenWhatsApp }
         </nav>
 
         {/* Zone 3: 1-2 primary actions */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           <button
             onClick={onOpenWhatsApp}
-            className="hidden sm:inline-flex items-center gap-2 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 px-3.5 py-2.5 rounded-xl transition-colors"
+            className="hidden sm:inline-flex items-center gap-2 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 px-3.5 py-2.5 rounded-xl transition-colors cursor-pointer"
           >
             <MessageCircle className="w-4 h-4 text-emerald-600" />
             <span>Asesoría WhatsApp</span>
           </button>
           <button
             onClick={onOpenCheckout}
-            className="inline-flex items-center gap-2 bg-[#0f382a] hover:bg-[#09261c] text-white font-bold text-xs sm:text-sm px-4 sm:px-5 py-2.5 rounded-xl shadow-lg shadow-emerald-950/15 hover:shadow-emerald-950/25 transition-all transform active:scale-95 whitespace-nowrap"
+            className="inline-flex items-center gap-1.5 sm:gap-2 bg-[#0f382a] hover:bg-[#09261c] text-white font-bold text-xs sm:text-sm px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl shadow-md sm:shadow-lg shadow-emerald-950/15 hover:shadow-emerald-950/25 transition-all transform active:scale-95 whitespace-nowrap cursor-pointer"
           >
-            <ShoppingBag className="w-4 h-4 text-amber-300" />
+            <ShoppingBag className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-300" />
             <span>Pagar al Recibir</span>
           </button>
         </div>

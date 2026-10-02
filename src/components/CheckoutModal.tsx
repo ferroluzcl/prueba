@@ -210,6 +210,9 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                     <h4 className="font-extrabold text-slate-900 text-sm">
                       {selectedPack.title}
                     </h4>
+                    <p className="text-xs text-emerald-800 font-semibold mt-0.5">
+                      ✓ Cantidad: {selectedPack.bottles} {selectedPack.bottles === 1 ? 'Botella (400ml)' : `Botellas (${selectedPack.bottles * 400}ml en total)`}
+                    </p>
                   </div>
                   <div className="text-right">
                     <span className="text-lg font-black text-emerald-800">
