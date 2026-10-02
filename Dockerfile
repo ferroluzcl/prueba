@@ -1,4 +1,4 @@
-# Etapa 1: Construcción
+# Etapa 1: Construcción del frontend
 FROM node:20-alpine AS builder
 WORKDIR /app
 
@@ -8,14 +8,16 @@ RUN npm install --legacy-peer-deps
 COPY . .
 RUN npm run build
 
-# Etapa 2: Servidor HTTP con Node.js
+# Etapa 2: Servidor Node con Express
 FROM node:20-alpine
 WORKDIR /app
 
-RUN npm install -g serve
+COPY package*.json ./
+RUN npm install --omit=dev --legacy-peer-deps
 
+COPY server.js ./
 COPY --from=builder /app/dist ./dist
 
 EXPOSE 3000
 
-CMD ["serve", "-s", "dist", "-l", "3000"]
+CMD ["node", "server.js"]
